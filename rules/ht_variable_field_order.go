@@ -20,11 +20,11 @@ func NewVariableFieldOrderRule() *VariableFieldOrderRule {
 	return &VariableFieldOrderRule{}
 }
 
-func (r *VariableFieldOrderRule) Name() string              { return "isapp_variable_field_order" }
+func (r *VariableFieldOrderRule) Name() string              { return "ht_variable_field_order" }
 func (r *VariableFieldOrderRule) Enabled() bool             { return true }
 func (r *VariableFieldOrderRule) Severity() tflint.Severity { return tflint.ERROR }
 func (r *VariableFieldOrderRule) Link() string {
-	return "https://github.com/isapp/tflint-ruleset-ht/blob/main/docs/rules/isapp_variable_field_order.md"
+	return "https://github.com/isapp/tflint-ruleset-ht/blob/main/docs/rules/ht_variable_field_order.md"
 }
 
 func (r *VariableFieldOrderRule) Check(runner tflint.Runner) error {

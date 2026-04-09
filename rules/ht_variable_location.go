@@ -17,11 +17,11 @@ func NewVariableLocationRule() *VariableLocationRule {
 	return &VariableLocationRule{}
 }
 
-func (r *VariableLocationRule) Name() string              { return "isapp_variable_location" }
+func (r *VariableLocationRule) Name() string              { return "ht_variable_location" }
 func (r *VariableLocationRule) Enabled() bool             { return true }
 func (r *VariableLocationRule) Severity() tflint.Severity { return tflint.ERROR }
 func (r *VariableLocationRule) Link() string {
-	return "https://github.com/isapp/tflint-ruleset-ht/blob/main/docs/rules/isapp_variable_location.md"
+	return "https://github.com/isapp/tflint-ruleset-ht/blob/main/docs/rules/ht_variable_location.md"
 }
 
 func (r *VariableLocationRule) Check(runner tflint.Runner) error {

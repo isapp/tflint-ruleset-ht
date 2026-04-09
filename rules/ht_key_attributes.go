@@ -72,11 +72,11 @@ func NewKeyAttributesRule() *KeyAttributesRule {
 	return &KeyAttributesRule{}
 }
 
-func (r *KeyAttributesRule) Name() string              { return "isapp_key_attributes" }
+func (r *KeyAttributesRule) Name() string              { return "ht_key_attributes" }
 func (r *KeyAttributesRule) Enabled() bool             { return true }
 func (r *KeyAttributesRule) Severity() tflint.Severity { return tflint.ERROR }
 func (r *KeyAttributesRule) Link() string {
-	return "https://github.com/isapp/tflint-ruleset-ht/blob/main/docs/rules/isapp_key_attributes.md"
+	return "https://github.com/isapp/tflint-ruleset-ht/blob/main/docs/rules/ht_key_attributes.md"
 }
 
 type attrPos struct {

@@ -20,11 +20,11 @@ func NewVariableOrderRule() *VariableOrderRule {
 	return &VariableOrderRule{}
 }
 
-func (r *VariableOrderRule) Name() string              { return "isapp_variable_order" }
+func (r *VariableOrderRule) Name() string              { return "ht_variable_order" }
 func (r *VariableOrderRule) Enabled() bool             { return true }
 func (r *VariableOrderRule) Severity() tflint.Severity { return tflint.ERROR }
 func (r *VariableOrderRule) Link() string {
-	return "https://github.com/isapp/tflint-ruleset-ht/blob/main/docs/rules/isapp_variable_order.md"
+	return "https://github.com/isapp/tflint-ruleset-ht/blob/main/docs/rules/ht_variable_order.md"
 }
 
 type varEntry struct {
