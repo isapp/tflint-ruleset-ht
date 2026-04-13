@@ -17,6 +17,7 @@ func main() {
 				rules.NewVariableFieldOrderRule(),
 				rules.NewKeyAttributesRule(),
 				rules.NewVariableSectionOrderRule(),
+				rules.NewModuleSourceRule(),
 			},
 		},
 	})
