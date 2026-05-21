@@ -18,8 +18,9 @@ func main() {
 				rules.NewKeyAttributesRule(),
 				rules.NewVariableSectionOrderRule(),
 				rules.NewModuleSourceRule(),
-				rules.NewPositiveVariableNamesRule(),
-				rules.NewHeredocDescriptionRule(),
+			rules.NewPositiveVariableNamesRule(),
+			rules.NewHeredocDescriptionRule(),
+			rules.NewUseOneForConditionalRule(),
 			},
 		},
 	})
