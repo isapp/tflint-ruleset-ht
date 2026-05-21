@@ -2,11 +2,11 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
 
 jobs:
-  goreleaser:
+  release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -16,17 +16,35 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Bump version and push tag
+        id: tag
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: patch
+          release_branches: main
+
+      - name: Fetch new tag
+        if: steps.tag.outputs.new_tag != ''
+        run: git fetch --tags
+
       - uses: actions/setup-go@v5
+        if: steps.tag.outputs.new_tag != ''
         with:
           go-version-file: go.mod
           cache: true
+
       - uses: goreleaser/goreleaser-action@v6
+        if: steps.tag.outputs.new_tag != ''
         with:
           distribution: goreleaser
           version: latest
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/attest-build-provenance@v2
+        if: steps.tag.outputs.new_tag != ''
         with:
           subject-path: dist/*
