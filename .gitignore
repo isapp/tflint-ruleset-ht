@@ -1,2 +1,7 @@
 dist/
 tflint-ruleset-ht
+
+# lb cache (SQLite)
+.lb/cache.db
+.lb/cache.db-shm
+.lb/cache.db-wal
