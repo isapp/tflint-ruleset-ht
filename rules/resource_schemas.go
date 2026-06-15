@@ -17,4 +17,8 @@ var resourceSchemas = map[string]atomSchema{
 		inputs:  []string{"bucket", "bucket_namespace", "bucket_prefix", "force_destroy", "object_lock_enabled", "region", "tags", "timeouts"},
 		outputs: []string{"arn", "bucket", "bucket_domain_name", "bucket_namespace", "bucket_prefix", "bucket_region", "bucket_regional_domain_name", "force_destroy", "hosted_zone_id", "id", "object_lock_enabled", "region", "tags", "tags_all", "website_domain", "website_endpoint"},
 	},
+	"aws_s3_bucket_public_access_block": {
+		inputs:  []string{"block_public_acls", "block_public_policy", "bucket", "id", "ignore_public_acls", "region", "restrict_public_buckets", "skip_destroy"},
+		outputs: []string{"block_public_acls", "block_public_policy", "bucket", "id", "ignore_public_acls", "region", "restrict_public_buckets", "skip_destroy"},
+	},
 }
