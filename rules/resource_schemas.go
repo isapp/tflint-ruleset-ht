@@ -21,4 +21,8 @@ var resourceSchemas = map[string]atomSchema{
 		inputs:  []string{"block_public_acls", "block_public_policy", "bucket", "ignore_public_acls", "region", "restrict_public_buckets", "skip_destroy"},
 		outputs: []string{"block_public_acls", "block_public_policy", "bucket", "id", "ignore_public_acls", "region", "restrict_public_buckets", "skip_destroy"},
 	},
+	"aws_s3_bucket_policy": {
+		inputs:  []string{"bucket", "policy", "region"},
+		outputs: []string{"bucket", "id", "policy", "region"},
+	},
 }
