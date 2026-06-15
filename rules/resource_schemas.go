@@ -29,4 +29,8 @@ var resourceSchemas = map[string]atomSchema{
 		inputs:  []string{"bucket", "region", "rule"},
 		outputs: []string{"bucket", "id", "region", "rule"},
 	},
+	"aws_s3_bucket_server_side_encryption_configuration": {
+		inputs:  []string{"bucket", "region", "rule"},
+		outputs: []string{"bucket", "id", "region", "rule"},
+	},
 }
