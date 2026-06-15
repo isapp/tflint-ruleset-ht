@@ -25,4 +25,8 @@ var resourceSchemas = map[string]atomSchema{
 		inputs:  []string{"bucket", "policy", "region"},
 		outputs: []string{"bucket", "id", "policy", "region"},
 	},
+	"aws_s3_bucket_ownership_controls": {
+		inputs:  []string{"bucket", "region", "rule"},
+		outputs: []string{"bucket", "id", "region", "rule"},
+	},
 }
