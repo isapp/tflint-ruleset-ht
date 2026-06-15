@@ -13,4 +13,8 @@ var resourceSchemas = map[string]atomSchema{
 		inputs:  []string{"bucket", "id", "mfa", "region", "versioning_configuration"},
 		outputs: []string{"bucket", "id", "mfa", "region", "versioning_configuration"},
 	},
+	"aws_s3_bucket": {
+		inputs:  []string{"bucket", "bucket_namespace", "bucket_prefix", "force_destroy", "object_lock_enabled", "region", "tags", "timeouts"},
+		outputs: []string{"arn", "bucket", "bucket_domain_name", "bucket_namespace", "bucket_prefix", "bucket_region", "bucket_regional_domain_name", "force_destroy", "hosted_zone_id", "id", "object_lock_enabled", "region", "tags", "tags_all"},
+	},
 }
