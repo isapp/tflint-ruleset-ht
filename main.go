@@ -10,7 +10,7 @@ func main() {
 	plugin.Serve(&plugin.ServeOpts{
 		RuleSet: &tflint.BuiltinRuleSet{
 			Name:    "ht",
-			Version: "0.4.0",
+			Version: "0.5.0",
 			Rules: []tflint.Rule{
 				rules.NewVariableLocationRule(),
 				rules.NewVariableOrderRule(),
@@ -18,9 +18,12 @@ func main() {
 				rules.NewKeyAttributesRule(),
 				rules.NewVariableSectionOrderRule(),
 				rules.NewModuleSourceRule(),
-			rules.NewPositiveVariableNamesRule(),
-			rules.NewHeredocDescriptionRule(),
-			rules.NewUseOneForConditionalRule(),
+				rules.NewPositiveVariableNamesRule(),
+				rules.NewHeredocDescriptionRule(),
+				rules.NewUseOneForConditionalRule(),
+				rules.NewAtomSingleResourceRule(),
+				rules.NewAtomFullInputsRule(),
+				rules.NewAtomFullOutputsRule(),
 			},
 		},
 	})
