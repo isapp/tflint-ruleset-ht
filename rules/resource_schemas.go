@@ -33,4 +33,8 @@ var resourceSchemas = map[string]atomSchema{
 		inputs:  []string{"bucket", "region", "rule"},
 		outputs: []string{"bucket", "id", "region", "rule"},
 	},
+	"aws_s3_bucket_logging": {
+		inputs:  []string{"bucket", "region", "target_bucket", "target_object_key_format", "target_prefix"},
+		outputs: []string{"bucket", "id", "region", "target_bucket", "target_object_key_format", "target_prefix"},
+	},
 }
