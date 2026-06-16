@@ -10,7 +10,7 @@ type atomSchema struct {
 // resourceSchemas maps resource types to expected atom inputs and outputs.
 var resourceSchemas = map[string]atomSchema{
 	"aws_s3_bucket_versioning": {
-		inputs:  []string{"bucket", "id", "mfa", "region", "versioning_configuration"},
+		inputs:  []string{"bucket", "expected_bucket_owner", "mfa", "region", "versioning_configuration"},
 		outputs: []string{"bucket", "id", "mfa", "region", "versioning_configuration"},
 	},
 	"aws_s3_bucket": {
@@ -30,15 +30,15 @@ var resourceSchemas = map[string]atomSchema{
 		outputs: []string{"bucket", "id", "region", "rule"},
 	},
 	"aws_s3_bucket_server_side_encryption_configuration": {
-		inputs:  []string{"bucket", "region", "rule"},
+		inputs:  []string{"bucket", "expected_bucket_owner", "region", "rule"},
 		outputs: []string{"bucket", "id", "region", "rule"},
 	},
 	"aws_s3_bucket_logging": {
-		inputs:  []string{"bucket", "region", "target_bucket", "target_object_key_format", "target_prefix"},
+		inputs:  []string{"bucket", "expected_bucket_owner", "region", "target_bucket", "target_object_key_format", "target_prefix"},
 		outputs: []string{"bucket", "id", "region", "target_bucket", "target_object_key_format", "target_prefix"},
 	},
 	"aws_s3_bucket_lifecycle_configuration": {
-		inputs:  []string{"bucket", "expected_bucket_owner", "rule"},
-		outputs: []string{"bucket", "expected_bucket_owner", "id", "rule"},
+		inputs:  []string{"bucket", "expected_bucket_owner", "region", "rule", "timeouts", "transition_default_minimum_object_size"},
+		outputs: []string{"bucket", "expected_bucket_owner", "id", "region", "rule", "transition_default_minimum_object_size"},
 	},
 }
