@@ -41,4 +41,24 @@ var resourceSchemas = map[string]atomSchema{
 		inputs:  []string{"bucket", "expected_bucket_owner", "region", "rule", "timeouts", "transition_default_minimum_object_size"},
 		outputs: []string{"bucket", "expected_bucket_owner", "id", "region", "rule", "transition_default_minimum_object_size"},
 	},
+	"aws_s3_bucket_object_lock_configuration": {
+		inputs:  []string{"bucket", "expected_bucket_owner", "rule"},
+		outputs: []string{"bucket", "expected_bucket_owner", "id"},
+	},
+	"aws_s3_bucket_cors_configuration": {
+		inputs:  []string{"bucket", "cors_rule", "expected_bucket_owner"},
+		outputs: []string{"bucket", "expected_bucket_owner", "id"},
+	},
+	"aws_s3_bucket_website_configuration": {
+		inputs:  []string{"bucket", "error_document", "expected_bucket_owner", "index_document", "redirect_all_requests_to", "region", "routing_rule"},
+		outputs: []string{"bucket", "error_document", "expected_bucket_owner", "id", "index_document", "redirect_all_requests_to", "region", "routing_rule", "website_domain", "website_endpoint"},
+	},
+	"aws_s3_bucket_notification": {
+		inputs:  []string{"bucket", "eventbridge", "lambda_function", "queue", "topic"},
+		outputs: []string{"bucket", "id"},
+	},
+	"aws_s3_bucket_replication_configuration": {
+		inputs:  []string{"bucket", "role", "rule"},
+		outputs: []string{"bucket", "id", "role"},
+	},
 }
