@@ -26,6 +26,7 @@ resource "aws_s3_bucket_versioning" "this" {
 }`,
 				"modules/aws/atoms/s3-bucket-versioning/inputs.tf": `
 variable "bucket" {}
+variable "expected_bucket_owner" {}
 variable "id" {}
 variable "mfa" {}
 variable "region" {}
@@ -42,6 +43,7 @@ resource "aws_s3_bucket_versioning" "this" {
 }`,
 				"modules/aws/atoms/s3-bucket-versioning/inputs.tf": `
 variable "bucket" {}
+variable "expected_bucket_owner" {}
 variable "id" {}
 variable "mfa" {}
 variable "region" {}`,
