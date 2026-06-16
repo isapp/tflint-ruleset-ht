@@ -37,4 +37,8 @@ var resourceSchemas = map[string]atomSchema{
 		inputs:  []string{"bucket", "region", "target_bucket", "target_object_key_format", "target_prefix"},
 		outputs: []string{"bucket", "id", "region", "target_bucket", "target_object_key_format", "target_prefix"},
 	},
+	"aws_s3_bucket_lifecycle_configuration": {
+		inputs:  []string{"bucket", "expected_bucket_owner", "rule"},
+		outputs: []string{"bucket", "expected_bucket_owner", "id", "rule"},
+	},
 }
