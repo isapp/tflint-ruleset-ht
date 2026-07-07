@@ -61,4 +61,16 @@ var resourceSchemas = map[string]atomSchema{
 		inputs:  []string{"bucket", "role", "rule"},
 		outputs: []string{"bucket", "id", "role"},
 	},
+	"aws_iam_role": {
+		inputs:  []string{"assume_role_policy", "description", "force_detach_policies", "max_session_duration", "name", "name_prefix", "path", "permissions_boundary", "tags"},
+		outputs: []string{"arn", "assume_role_policy", "create_date", "description", "force_detach_policies", "id", "max_session_duration", "name", "name_prefix", "path", "permissions_boundary", "tags", "tags_all", "unique_id"},
+	},
+	"aws_iam_role_policy": {
+		inputs:  []string{"name", "name_prefix", "policy", "role"},
+		outputs: []string{"id", "name", "name_prefix", "policy", "role"},
+	},
+	"aws_iam_role_policy_attachment": {
+		inputs:  []string{"policy_arn", "role"},
+		outputs: []string{"id", "policy_arn", "role"},
+	},
 }
