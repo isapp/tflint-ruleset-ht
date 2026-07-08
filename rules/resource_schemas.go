@@ -73,4 +73,36 @@ var resourceSchemas = map[string]atomSchema{
 		inputs:  []string{"policy_arn", "role"},
 		outputs: []string{"id", "policy_arn", "role"},
 	},
+	"aws_iam_user": {
+		inputs:  []string{"force_destroy", "name", "path", "permissions_boundary", "tags"},
+		outputs: []string{"arn", "force_destroy", "id", "name", "path", "permissions_boundary", "tags", "tags_all", "unique_id"},
+	},
+	"aws_iam_group": {
+		inputs:  []string{"name", "path"},
+		outputs: []string{"arn", "id", "name", "path", "unique_id"},
+	},
+	"aws_iam_policy": {
+		inputs:  []string{"delay_after_policy_creation_in_ms", "description", "name", "name_prefix", "path", "policy", "tags"},
+		outputs: []string{"arn", "attachment_count", "delay_after_policy_creation_in_ms", "description", "id", "name", "name_prefix", "path", "policy", "policy_id", "tags", "tags_all"},
+	},
+	"aws_iam_user_policy": {
+		inputs:  []string{"name", "name_prefix", "policy", "user"},
+		outputs: []string{"id", "name", "name_prefix", "policy", "user"},
+	},
+	"aws_iam_group_policy": {
+		inputs:  []string{"group", "name", "name_prefix", "policy"},
+		outputs: []string{"group", "id", "name", "name_prefix", "policy"},
+	},
+	"aws_iam_user_policy_attachment": {
+		inputs:  []string{"policy_arn", "user"},
+		outputs: []string{"id", "policy_arn", "user"},
+	},
+	"aws_iam_group_policy_attachment": {
+		inputs:  []string{"group", "policy_arn"},
+		outputs: []string{"group", "id", "policy_arn"},
+	},
+	"aws_iam_user_group_membership": {
+		inputs:  []string{"groups", "user"},
+		outputs: []string{"groups", "id", "user"},
+	},
 }
