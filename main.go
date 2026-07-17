@@ -24,6 +24,10 @@ func main() {
 				rules.NewAtomSingleResourceRule(),
 				rules.NewAtomFullInputsRule(),
 				rules.NewAtomFullOutputsRule(),
+				rules.NewManagedRepoRefRule(),
+				rules.NewNoHardcodedAccountIDRule(),
+				rules.NewNoHardcodedARNRule(),
+				rules.NewNoHardcodedResourceIDRule(),
 			},
 		},
 	})
