@@ -106,8 +106,12 @@ var resourceSchemas = map[string]atomSchema{
 		outputs: []string{"groups", "id", "user"},
 	},
 	"github_actions_organization_secret": {
-		inputs:  []string{"encrypted_value", "plaintext_value", "secret_name", "selected_repository_ids", "visibility"},
+		inputs:  []string{"encrypted_value", "plaintext_value", "secret_name", "visibility"},
 		outputs: []string{"created_at", "id", "updated_at"},
+	},
+	"github_actions_organization_secret_repositories": {
+		inputs:  []string{"secret_name", "selected_repository_ids"},
+		outputs: []string{"id"},
 	},
 	"github_app_installation_repository": {
 		inputs:  []string{"installation_id", "repository"},
