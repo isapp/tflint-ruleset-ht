@@ -117,4 +117,12 @@ var resourceSchemas = map[string]atomSchema{
 		inputs:  []string{"installation_id", "repository"},
 		outputs: []string{"id", "repo_id"},
 	},
+	"aws_ecs_cluster": {
+		inputs:  []string{"configuration", "name", "region", "service_connect_defaults", "setting", "tags"},
+		outputs: []string{"arn", "configuration", "id", "name", "region", "service_connect_defaults", "setting", "tags", "tags_all"},
+	},
+	"aws_ecs_cluster_capacity_providers": {
+		inputs:  []string{"capacity_providers", "cluster_name", "default_capacity_provider_strategy", "region"},
+		outputs: []string{"capacity_providers", "cluster_name", "default_capacity_provider_strategy", "id", "region"},
+	},
 }
