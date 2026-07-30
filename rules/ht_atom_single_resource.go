@@ -3,8 +3,6 @@ package rules
 
 import (
 	"fmt"
-	"path/filepath"
-	"strings"
 
 	"github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
@@ -28,17 +26,9 @@ func (r *AtomSingleResourceRule) Link() string {
 }
 
 func (r *AtomSingleResourceRule) Check(runner tflint.Runner) error {
-	files, err := runner.GetFiles()
+	isAtom, err := isAtomModule(runner)
 	if err != nil {
 		return err
-	}
-
-	isAtom := false
-	for filename := range files {
-		if strings.Contains(filepath.ToSlash(filename), "/atoms/") {
-			isAtom = true
-			break
-		}
 	}
 	if !isAtom {
 		return nil
