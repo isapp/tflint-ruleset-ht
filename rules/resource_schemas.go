@@ -125,4 +125,32 @@ var resourceSchemas = map[string]atomSchema{
 		inputs:  []string{"capacity_providers", "cluster_name", "default_capacity_provider_strategy", "region"},
 		outputs: []string{"capacity_providers", "cluster_name", "default_capacity_provider_strategy", "id", "region"},
 	},
+	"aws_ecs_task_definition": {
+		inputs:  []string{"container_definitions", "cpu", "enable_fault_injection", "ephemeral_storage", "execution_role_arn", "family", "ipc_mode", "memory", "network_mode", "pid_mode", "placement_constraints", "proxy_configuration", "region", "requires_compatibilities", "runtime_platform", "skip_destroy", "tags", "task_role_arn", "track_latest", "volume"},
+		outputs: []string{"arn", "arn_without_revision", "container_definitions", "cpu", "enable_fault_injection", "ephemeral_storage", "execution_role_arn", "family", "id", "ipc_mode", "memory", "network_mode", "pid_mode", "placement_constraints", "proxy_configuration", "region", "requires_compatibilities", "revision", "runtime_platform", "skip_destroy", "tags", "tags_all", "task_role_arn", "track_latest", "volume"},
+	},
+	"aws_eks_cluster": {
+		inputs:  []string{"access_config", "bootstrap_self_managed_addons", "compute_config", "control_plane_scaling_config", "deletion_protection", "enabled_cluster_log_types", "encryption_config", "force_update_version", "kubernetes_network_config", "kubernetes_version", "name", "outpost_config", "region", "remote_network_config", "role_arn", "storage_config", "tags", "timeouts", "upgrade_policy", "vpc_config", "zonal_shift_config"},
+		outputs: []string{"access_config", "arn", "bootstrap_self_managed_addons", "certificate_authority", "cluster_id", "compute_config", "control_plane_scaling_config", "created_at", "deletion_protection", "enabled_cluster_log_types", "encryption_config", "endpoint", "force_update_version", "id", "identity", "kubernetes_network_config", "name", "outpost_config", "platform_version", "region", "remote_network_config", "role_arn", "status", "storage_config", "tags", "tags_all", "timeouts", "upgrade_policy", "version", "vpc_config", "zonal_shift_config"},
+	},
+	"aws_eks_node_group": {
+		inputs:  []string{"ami_type", "capacity_type", "cluster_name", "disk_size", "force_update_version", "instance_types", "kubernetes_version", "labels", "launch_template", "node_group_name", "node_group_name_prefix", "node_repair_config", "node_role_arn", "region", "release_version", "remote_access", "scaling_config", "subnet_ids", "tags", "taint", "timeouts", "update_config", "warm_pool_config"},
+		outputs: []string{"ami_type", "arn", "capacity_type", "cluster_name", "disk_size", "force_update_version", "id", "instance_types", "labels", "launch_template", "node_group_name", "node_group_name_prefix", "node_repair_config", "node_role_arn", "region", "release_version", "remote_access", "resources", "scaling_config", "status", "subnet_ids", "tags", "tags_all", "taint", "timeouts", "update_config", "version", "warm_pool_config"},
+	},
+	"aws_eks_addon": {
+		inputs:  []string{"addon_name", "addon_version", "cluster_name", "configuration_values", "namespace_config", "pod_identity_association", "preserve", "region", "resolve_conflicts_on_create", "resolve_conflicts_on_update", "service_account_role_arn", "tags", "timeouts"},
+		outputs: []string{"addon_name", "addon_version", "arn", "cluster_name", "configuration_values", "created_at", "id", "modified_at", "namespace_config", "pod_identity_association", "preserve", "region", "resolve_conflicts_on_create", "resolve_conflicts_on_update", "service_account_role_arn", "tags", "tags_all", "timeouts"},
+	},
+	"aws_eks_access_entry": {
+		inputs:  []string{"cluster_name", "kubernetes_groups", "principal_arn", "region", "tags", "timeouts", "type", "user_name"},
+		outputs: []string{"access_entry_arn", "cluster_name", "created_at", "id", "kubernetes_groups", "modified_at", "principal_arn", "region", "tags", "tags_all", "timeouts", "type", "user_name"},
+	},
+	"aws_iam_openid_connect_provider": {
+		inputs:  []string{"client_id_list", "tags", "thumbprint_list", "url"},
+		outputs: []string{"arn", "client_id_list", "id", "tags", "tags_all", "thumbprint_list", "url"},
+	},
+	"aws_launch_template": {
+		inputs:  []string{"block_device_mappings", "capacity_reservation_specification", "cpu_options", "credit_specification", "default_version", "description", "disable_api_stop", "disable_api_termination", "ebs_optimized", "enclave_options", "hibernation_options", "iam_instance_profile", "image_id", "instance_initiated_shutdown_behavior", "instance_market_options", "instance_requirements", "instance_type", "kernel_id", "key_name", "license_specification", "maintenance_options", "metadata_options", "monitoring", "name", "name_prefix", "network_interfaces", "network_performance_options", "placement", "private_dns_name_options", "ram_disk_id", "region", "secondary_interfaces", "security_group_names", "tag_specifications", "tags", "update_default_version", "user_data", "vpc_security_group_ids"},
+		outputs: []string{"arn", "block_device_mappings", "capacity_reservation_specification", "cpu_options", "credit_specification", "default_version", "description", "disable_api_stop", "disable_api_termination", "ebs_optimized", "enclave_options", "hibernation_options", "iam_instance_profile", "id", "image_id", "instance_initiated_shutdown_behavior", "instance_market_options", "instance_requirements", "instance_type", "kernel_id", "key_name", "latest_version", "license_specification", "maintenance_options", "metadata_options", "monitoring", "name", "name_prefix", "network_interfaces", "network_performance_options", "placement", "private_dns_name_options", "ram_disk_id", "region", "secondary_interfaces", "security_group_names", "tag_specifications", "tags", "tags_all", "update_default_version", "user_data", "vpc_security_group_ids"},
+	},
 }

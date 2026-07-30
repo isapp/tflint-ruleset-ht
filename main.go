@@ -19,6 +19,7 @@ func main() {
 				rules.NewVariableSectionOrderRule(),
 				rules.NewModuleSourceRule(),
 				rules.NewPositiveVariableNamesRule(),
+				rules.NewReservedVariableNamesRule(),
 				rules.NewHeredocDescriptionRule(),
 				rules.NewUseOneForConditionalRule(),
 				rules.NewAtomSingleResourceRule(),
