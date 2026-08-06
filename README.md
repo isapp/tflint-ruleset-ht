@@ -6,18 +6,30 @@ A custom tflint ruleset enforcing HT Terraform module conventions.
 
 | Rule | Severity | Description |
 |------|----------|-------------|
+| `ht_heredoc_description` | ERROR | `variable` blocks with a multi-attribute `object(...)` type must use `<<-DOC` heredoc for `description` |
 | `ht_key_attributes` | ERROR | Identifying resource attributes must appear first, followed by remaining attributes sorted A-Z |
 | `ht_managed_repo_ref` | WARNING | `repository` values that match a `managed-repo` module's `repo_name` should reference the module output, not hardcode the string |
 | `ht_module_source` | ERROR | Module sources referencing `ht-terraform-modules` must use `git::https://`, include `?ref=`, and omit `//subdir` notation |
 | `ht_no_hardcoded_account_id` | WARNING | String literals shaped like a 12-digit AWS account ID should be a variable or `data.aws_caller_identity` |
 | `ht_no_hardcoded_arn` | WARNING | Hardcoded ARNs should reference the owning resource's `.arn` (AWS-managed `arn:aws:iam::aws:*` excepted) |
 | `ht_no_hardcoded_resource_id` | WARNING | String literals shaped like an AWS resource ID (`vpc-`, `subnet-`, `sg-`, …) should come from a data source or reference |
+| `ht_positive_variable_names` | ERROR | `bool` variables must use positive naming — no `disable_`, `no_`, `not_`, `prevent_` prefix |
+| `ht_reserved_variable_names` | ERROR | Variable names Terraform reserves as `module` meta-arguments (`count`, `source`, `version`, …) prevent the module from initialising |
+| `ht_use_one_for_conditional` | ERROR | `[0]` indexing on a count-conditional resource, data source, or module must use `one(...)` instead |
 | `ht_variable_field_order` | ERROR | Fields within each variable block must be ordered: `type`, `default`, `description` |
 | `ht_variable_location` | ERROR | All `variable` blocks must be defined in `inputs.tf` |
 | `ht_variable_order` | ERROR | Variables in `inputs.tf` must be sorted A-Z within each section (required first, then optional) |
 | `ht_variable_section_order` | ERROR | In `inputs.tf`, required and optional variables must be separated by a `DEFAULTS` comment, with required variables before it and optional variables after it |
 
 ## Rule Details
+
+### `ht_heredoc_description`
+
+A `variable` whose `type` contains `object(...)` with 2 or more attributes must write its `description` as a heredoc (`<<-DOC`). One line cannot document five keys, and heredoc bodies carry through to `terraform-docs` output as formatted markdown.
+
+Single-attribute objects and non-object types are out of scope.
+
+See [`docs/rules/ht_heredoc_description.md`](docs/rules/ht_heredoc_description.md).
 
 ### `ht_key_attributes`
 
@@ -56,6 +68,30 @@ There is no per-rule config in v1. Suppress a specific finding with tflint's nat
 # tflint-ignore: ht_no_hardcoded_account_id
 account_map = { prod = "123456789012" }
 ```
+
+### `ht_positive_variable_names`
+
+`bool` variables must be named positively — no `disable_`, `no_`, `not_`, or `prevent_` prefix. A negative boolean forces a double negative at every use site (`disable_encryption = false`) and makes the falsy default the unsafe one.
+
+Only exact `type = bool` is in scope; the prefix match is anchored to the start of the name.
+
+See [`docs/rules/ht_positive_variable_names.md`](docs/rules/ht_positive_variable_names.md).
+
+### `ht_reserved_variable_names`
+
+Terraform reserves `count`, `depends_on`, `for_each`, `lifecycle`, `providers`, `source`, and `version` as meta-arguments inside `module` blocks. A module declaring a variable with one of those names **cannot be initialised at all** — `terraform init` fails with "Invalid variable name". Rename the variable and map it back in `main.tf`.
+
+See [`docs/rules/ht_reserved_variable_names.md`](docs/rules/ht_reserved_variable_names.md).
+
+### `ht_use_one_for_conditional`
+
+A resource with `count = var.enabled ? 1 : 0` is a list. Reading it as `aws_thing.x[0].id` fails the plan with "Invalid index" the first time the count is 0 — a latent break that surfaces whenever someone flips the flag. `one(aws_thing.x[*].id)` returns `null` instead.
+
+Applies to resources, data sources, and `module` calls. The `[0]` must index the object itself: a deeper index is a list-typed *attribute* (`aws_organizations_organization.root.roots[0].id`) and is ignored. Bodies of `moved`, `import`, and `removed` blocks are skipped — Terraform requires a literal address there, so `one()` is not valid.
+
+This is a correctness rule, not a style rule. Consumers that lint hand-authored configuration may still opt out via `.tflint.hcl`.
+
+See [`docs/rules/ht_use_one_for_conditional.md`](docs/rules/ht_use_one_for_conditional.md).
 
 ### `ht_variable_field_order`
 
