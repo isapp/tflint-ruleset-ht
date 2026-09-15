@@ -148,3 +148,128 @@ resource "aws_totally_unknown_thing" "this" {
 		})
 	}
 }
+
+// These cases pin the ordering contract for the EFS family.
+//
+// Four of the five take file_system_id as their key attribute and aws_efs_file_system
+// takes creation_token, so none of them is the `name` case scaffold-atom.py
+// special-cases — every generated main.tf here needs manual reordering before it
+// satisfies this rule, the same trap the EKS atoms hit.
+func TestKeyAttributesRule_EfsFamily(t *testing.T) {
+	rule := rules.NewKeyAttributesRule()
+
+	cases := []struct {
+		name      string
+		files     map[string]string
+		wantCount int
+	}{
+		{
+			name: "efs-file-system — creation_token first, remainder A-Z",
+			files: map[string]string{
+				"modules/aws/atoms/efs-file-system/main.tf": `
+resource "aws_efs_file_system" "this" {
+  creation_token                  = var.creation_token
+  availability_zone_name          = var.availability_zone_name
+  encrypted                       = var.encrypted
+  kms_key_id                      = var.kms_key_id
+  performance_mode                = var.performance_mode
+  provisioned_throughput_in_mibps = var.provisioned_throughput_in_mibps
+  region                          = var.region
+  tags                            = local.tags
+  throughput_mode                 = var.throughput_mode
+}`,
+			},
+			wantCount: 0,
+		},
+		{
+			name: "efs-mount-target — both key attrs first, then A-Z",
+			files: map[string]string{
+				"modules/aws/atoms/efs-mount-target/main.tf": `
+resource "aws_efs_mount_target" "this" {
+  file_system_id  = var.file_system_id
+  subnet_id       = var.subnet_id
+  ip_address      = var.ip_address
+  region          = var.region
+  security_groups = var.security_groups
+}`,
+			},
+			wantCount: 0,
+		},
+		{
+			name: "efs-mount-target — non-key attr wedged between the key attrs",
+			files: map[string]string{
+				"modules/aws/atoms/efs-mount-target/main.tf": `
+resource "aws_efs_mount_target" "this" {
+  file_system_id  = var.file_system_id
+  ip_address      = var.ip_address
+  subnet_id       = var.subnet_id
+  security_groups = var.security_groups
+}`,
+			},
+			wantCount: 1,
+		},
+		{
+			name: "efs-access-point — file_system_id first, remainder A-Z",
+			files: map[string]string{
+				"modules/aws/atoms/efs-access-point/main.tf": `
+resource "aws_efs_access_point" "this" {
+  file_system_id = var.file_system_id
+  region         = var.region
+  tags           = local.tags
+}`,
+			},
+			wantCount: 0,
+		},
+		{
+			name: "efs-file-system-policy — file_system_id before policy",
+			files: map[string]string{
+				"modules/aws/atoms/efs-file-system-policy/main.tf": `
+resource "aws_efs_file_system_policy" "this" {
+  file_system_id                     = var.file_system_id
+  bypass_policy_lockout_safety_check = var.bypass_policy_lockout_safety_check
+  policy                             = var.policy
+  region                             = var.region
+}`,
+			},
+			wantCount: 0,
+		},
+		{
+			name: "efs-file-system-policy — policy before the key attr",
+			files: map[string]string{
+				"modules/aws/atoms/efs-file-system-policy/main.tf": `
+resource "aws_efs_file_system_policy" "this" {
+  policy         = var.policy
+  file_system_id = var.file_system_id
+  region         = var.region
+}`,
+			},
+			wantCount: 1,
+		},
+		{
+			name: "efs-backup-policy — file_system_id first",
+			files: map[string]string{
+				"modules/aws/atoms/efs-backup-policy/main.tf": `
+resource "aws_efs_backup_policy" "this" {
+  file_system_id = var.file_system_id
+  region         = var.region
+}`,
+			},
+			wantCount: 0,
+		},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			runner := helper.TestRunner(t, tc.files)
+			if err := rule.Check(runner); err != nil {
+				t.Fatalf("unexpected error: %s", err)
+			}
+			if len(runner.Issues) != tc.wantCount {
+				t.Errorf("got %d issue(s), want %d", len(runner.Issues), tc.wantCount)
+				for _, iss := range runner.Issues {
+					t.Logf("  - %s", iss.Message)
+				}
+			}
+		})
+	}
+}
